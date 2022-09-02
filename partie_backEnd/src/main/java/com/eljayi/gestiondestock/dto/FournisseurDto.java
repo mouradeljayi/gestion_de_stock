@@ -36,6 +36,7 @@ public class FournisseurDto {
                 .id(fournisseur.getId())
                 .nom(fournisseur.getNom())
                 .prenom(fournisseur.getPrenom())
+                .adresse(AdresseDto.fromEntity(fournisseur.getAdresse()))
                 .photo(fournisseur.getPhoto())
                 .mail(fournisseur.getMail())
                 .numTel(fournisseur.getNumTel())
@@ -47,11 +48,11 @@ public class FournisseurDto {
         if(fournisseurDto == null){
             return null;
         }
-
         Fournisseur fournisseur = new Fournisseur();
         fournisseur.setId(fournisseurDto.getId());
         fournisseur.setNom(fournisseurDto.getNom());
         fournisseur.setPrenom(fournisseurDto.getPrenom());
+        fournisseur.setAdresse(AdresseDto.toEntity(fournisseurDto.getAdresse()));
         fournisseur.setPhoto(fournisseurDto.getPhoto());
         fournisseur.setMail(fournisseurDto.getMail());
         fournisseur.setNumTel(fournisseurDto.getNumTel());

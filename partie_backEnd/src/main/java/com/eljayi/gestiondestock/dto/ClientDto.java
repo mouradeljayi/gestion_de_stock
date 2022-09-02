@@ -36,6 +36,7 @@ public class ClientDto {
                 .id(client.getId())
                 .nom(client.getNom())
                 .prenom(client.getPrenom())
+                .adresse(AdresseDto.fromEntity(client.getAdresse()))
                 .photo(client.getPhoto())
                 .mail(client.getMail())
                 .numTel(client.getNumTel())
@@ -47,11 +48,11 @@ public class ClientDto {
         if(clientDto == null){
             return null;
         }
-
         Client client = new Client();
         client.setId(clientDto.getId());
         client.setNom(clientDto.getNom());
         client.setPrenom(clientDto.getPrenom());
+        client.setAdresse(AdresseDto.toEntity(clientDto.getAdresse()));
         client.setPhoto(clientDto.getPhoto());
         client.setMail(clientDto.getMail());
         client.setNumTel(clientDto.getNumTel());
