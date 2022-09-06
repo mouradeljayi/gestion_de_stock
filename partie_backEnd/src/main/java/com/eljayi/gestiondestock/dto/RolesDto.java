@@ -24,7 +24,6 @@ public class RolesDto {
                 .roleName(roles.getRoleName())
                 .build();
     }
-
     public static Roles toEntity (RolesDto rolesDto){
         if(rolesDto== null){
             return null;

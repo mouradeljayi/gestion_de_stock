@@ -42,8 +42,6 @@ public class FournisseurDto {
                 .numTel(fournisseur.getNumTel())
                 .build();
     }
-
-
     public static Fournisseur toEntity(FournisseurDto fournisseurDto){
         if(fournisseurDto == null){
             return null;

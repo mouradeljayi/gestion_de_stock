@@ -28,7 +28,6 @@ public class LigneVenteDto {
                 .prixUnitaire(lignevente.getPrixUnitaire())
                 .build();
     }
-
     public LigneVente toEntity (LigneVenteDto ligneventeDto){
         if(ligneventeDto == null){
             return null;

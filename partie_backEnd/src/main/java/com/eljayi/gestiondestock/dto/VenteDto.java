@@ -29,9 +29,8 @@ public class VenteDto {
                 .commentaire(vente.getCommentaire())
                 .build();
     }
-
     public Vente toEntity(VenteDto venteDto){
-        if(venteDto==null){
+        if(venteDto == null){
             return null;
         }
         Vente vente = new Vente();

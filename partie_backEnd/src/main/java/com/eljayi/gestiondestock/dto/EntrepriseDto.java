@@ -48,8 +48,6 @@ public class EntrepriseDto {
                 .siteWeb(entreprise.getSiteWeb())
                 .build();
     }
-
-
     public static Entreprise toEntity(EntrepriseDto entrepriseDto){
         if(entrepriseDto == null){
             return null;

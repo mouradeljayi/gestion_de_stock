@@ -29,7 +29,6 @@ public class LigneCommandeFournisseurDto {
                 .prixUnitaire(ligneCommandeFournisseur.getPrixUnitaire())
                 .build();
     }
-
     public LigneCommandeFournisseur toEntity (LigneCommandeFournisseurDto ligneCommandeFournisseurDto){
         if(ligneCommandeFournisseurDto == null){
             return null;

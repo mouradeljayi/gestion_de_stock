@@ -42,8 +42,6 @@ public class ClientDto {
                 .numTel(client.getNumTel())
                 .build();
     }
-
-
     public static Client toEntity(ClientDto clientDto){
         if(clientDto == null){
             return null;

@@ -52,9 +52,9 @@ public class ArticleDto {
         article.setDesignation(articleDto.getDesignation());
         article.setPrixUnitaireHt(articleDto.getPrixUnitaireHt());
         article.setTauxTva(articleDto.getTauxTva());
-        article.setPrixUnitaireTtc(article.getPrixUnitaireTtc());
-        article.setPhoto(article.getPhoto());
-        article.setCategorie(article.getCategorie());
+        article.setPrixUnitaireTtc(articleDto.getPrixUnitaireTtc());
+        article.setPhoto(articleDto.getPhoto());
+        article.setCategorie(CategorieDto.toEntity(articleDto.getCategorie()));
         return article;
     }
 

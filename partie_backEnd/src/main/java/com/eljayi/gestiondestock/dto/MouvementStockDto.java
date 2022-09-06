@@ -33,9 +33,8 @@ public class MouvementStockDto {
                 .dateMvt(mouvementstock.getDateMvt())
                 .build();
     }
-
     public MouvementStock toEntity (MouvementStockDto mouvementstockDto){
-        if(mouvementstockDto== null){
+        if(mouvementstockDto == null){
             return null;
         }
         MouvementStock mouvementstock = new MouvementStock();

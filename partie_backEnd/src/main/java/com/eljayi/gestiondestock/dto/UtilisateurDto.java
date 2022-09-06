@@ -55,7 +55,6 @@ public class UtilisateurDto {
                 .build();
     }
 
-
     public static Utilisateur toEntity(UtilisateurDto utilisateurDto){
         if(utilisateurDto == null){
             return null;
