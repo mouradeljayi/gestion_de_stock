@@ -45,7 +45,6 @@ public class ArticleDto {
         if(articleDto == null){
             return null;
         }
-
         Article article = new Article();
         article.setId(articleDto.getId());
         article.setCodeArticle(articleDto.getCodeArticle());
