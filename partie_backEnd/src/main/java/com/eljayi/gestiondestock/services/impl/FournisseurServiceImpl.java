@@ -5,7 +5,6 @@ import com.eljayi.gestiondestock.dto.FournisseurDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
-import com.eljayi.gestiondestock.model.Fournisseur;
 import com.eljayi.gestiondestock.repository.FournisseurRepository;
 import com.eljayi.gestiondestock.services.FournisseurService;
 import com.eljayi.gestiondestock.validator.FournisseurValidator;
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,11 +40,12 @@ public class FournisseurServiceImpl implements FournisseurService {
             log.error("ID de fournisseur est null");
             return null;
         }
-        Optional<Fournisseur> fournisseur = fournisseurRepository.findById(id);
-        return Optional.of(FournisseurDto.fromEntity(fournisseur.get())).orElseThrow(() ->
-                new EntityNotFoundException(
-                        "Aucun fournisseur avec l'ID "+ id +" n'est trouvé dans la BDD", ErrorCodes.FOURNISSEUR_NOT_FOUND)
-        );
+        return fournisseurRepository.findById(id)
+                .map(FournisseurDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Aucun fournisseur avec l'ID = " + id + " n'été trouvé dans la BDD",
+                        ErrorCodes.FOURNISSEUR_NOT_FOUND
+                ));
     }
 
     @Override

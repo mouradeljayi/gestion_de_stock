@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,11 +44,12 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("ID de l'article est null");
             return null;
         }
-        Optional<Article> article = articleRepository.findById(id);
-        return Optional.of(ArticleDto.fromEntity(article.get())).orElseThrow(() ->
-                new EntityNotFoundException(
-                        "Aucun article avec l'ID " + id + "n'est trouvé dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND)
-                );
+        return articleRepository.findById(id)
+            .map(ArticleDto::fromEntity)
+            .orElseThrow(() -> new EntityNotFoundException(
+                    "Aucuun article avec l'ID = " + id + " n'été trouvé dans la BDD",
+                    ErrorCodes.ARTICLE_NOT_FOUND
+            ));
     }
 
     @Override
@@ -60,11 +60,12 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("Code de l'article est null");
             return null;
         }
-        Optional<Article> article = articleRepository.findArticleByCodeArticle(codeArticle);
-        return Optional.of(ArticleDto.fromEntity(article.get())).orElseThrow(() ->
-                new EntityNotFoundException(
-                        "Aucun article avec le code " + codeArticle + "n'est trouvé dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND)
-        );
+        return articleRepository.findArticleByCodeArticle(codeArticle)
+                .map(ArticleDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Aucun article avec l'ID = " + codeArticle + " n'été trouvé dans la BDD",
+                        ErrorCodes.ARTICLE_NOT_FOUND
+                ));
     }
 
     @Override

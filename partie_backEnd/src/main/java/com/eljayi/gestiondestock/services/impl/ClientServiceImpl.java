@@ -5,7 +5,6 @@ import com.eljayi.gestiondestock.dto.ClientDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
-import com.eljayi.gestiondestock.model.Client;
 import com.eljayi.gestiondestock.repository.ClientRepository;
 import com.eljayi.gestiondestock.services.ClientService;
 import com.eljayi.gestiondestock.validator.ClientValidator;
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,11 +40,12 @@ public class ClientServiceImpl implements ClientService {
             log.error("ID du client est null");
             return null;
         }
-        Optional<Client> client = clientRepository.findById(id);
-        return Optional.of(ClientDto.fromEntity(client.get())).orElseThrow(() ->
-                new EntityNotFoundException(
-                        "Aucun client avec l'ID "+ id +" n'est trouvé dans la BDD", ErrorCodes.CLIENT_NOT_FOUND)
-        );
+        return clientRepository.findById(id)
+                .map(ClientDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Aucun client avec l'ID = " + id + " n'été trouvé dans la BDD",
+                        ErrorCodes.CLIENT_NOT_FOUND
+                ));
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.eljayi.gestiondestock.dto;
 
 import com.eljayi.gestiondestock.model.CommandeClient;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,12 +17,13 @@ public class CommandeClientDto {
 
     private Instant dateCommande;
 
-    @JsonIgnore
-    private List<LigneCommandeClientDto> ligneCommandeClients;
-
     private ClientDto client;
 
-    public CommandeClientDto fromEntity (CommandeClient commandeclient){
+    private List<LigneCommandeClientDto> ligneCommandeClients;
+
+    private Integer  idEntreprise;
+
+    public static CommandeClientDto fromEntity (CommandeClient commandeclient){
         if(commandeclient == null){
             return null;
         }
@@ -32,9 +32,10 @@ public class CommandeClientDto {
                 .code(commandeclient.getCode())
                 .dateCommande(commandeclient.getDateCommande())
                 .client(ClientDto.fromEntity(commandeclient.getClient()))
+                .idEntreprise(commandeclient.getIdEntreprise())
                 .build();
     }
-    public CommandeClient toEntity (CommandeClientDto commandeclientDto){
+    public static CommandeClient toEntity (CommandeClientDto commandeclientDto){
         if(commandeclientDto == null){
             return null;
         }
@@ -42,7 +43,8 @@ public class CommandeClientDto {
         commandeclient.setId(commandeclientDto.getId());
         commandeclient.setCode(commandeclientDto.getCode());
         commandeclient.setDateCommande(commandeclientDto.getDateCommande());
-        commandeclient.setClient(ClientDto.toEntity(commandeclientDto.getClient()));
+        commandeclient.setIdEntreprise(commandeclientDto.getIdEntreprise());
+        //commandeclient.setClient(ClientDto.toEntity(commandeclientDto.getClient()));
         return commandeclient;
     }
 }

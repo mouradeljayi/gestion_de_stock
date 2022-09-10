@@ -1,7 +1,6 @@
 package com.eljayi.gestiondestock.dto;
 
 import com.eljayi.gestiondestock.model.CommandeFournisseur;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import java.time.Instant;
@@ -17,12 +16,13 @@ public class CommandeFournisseurDto {
 
     private Instant dateCommande;
 
-    @JsonIgnore
-    private List<LigneCommandeFournisseurDto> ligneCommandeUsines;
+    private List<LigneCommandeFournisseurDto> ligneCommandeFournisseurs;
 
     private FournisseurDto fournisseur;
 
-    public CommandeFournisseurDto fromEntity (CommandeFournisseur commandeFournisseur){
+    private Integer  idEntreprise;
+
+    public static CommandeFournisseurDto fromEntity(CommandeFournisseur commandeFournisseur){
         if(commandeFournisseur == null){
             return null;
         }
@@ -31,9 +31,10 @@ public class CommandeFournisseurDto {
                 .code(commandeFournisseur.getCode())
                 .dateCommande(commandeFournisseur.getDateCommande())
                 .fournisseur(FournisseurDto.fromEntity(commandeFournisseur.getFournisseur()))
+                .idEntreprise(commandeFournisseur.getIdEntreprise())
                 .build();
     }
-    public CommandeFournisseur toEntity (CommandeFournisseurDto commandeFournisseurDto){
+    public static CommandeFournisseur toEntity(CommandeFournisseurDto commandeFournisseurDto){
         if(commandeFournisseurDto == null){
             return null;
         }
@@ -41,6 +42,7 @@ public class CommandeFournisseurDto {
         commandeFournisseur.setId(commandeFournisseurDto.getId());
         commandeFournisseur.setCode(commandeFournisseurDto.getCode());
         commandeFournisseur.setDateCommande(commandeFournisseurDto.getDateCommande());
+        commandeFournisseur.setIdEntreprise(commandeFournisseurDto.getIdEntreprise());
         commandeFournisseur.setFournisseur(FournisseurDto.toEntity(commandeFournisseurDto.getFournisseur()));
         return commandeFournisseur;
     }

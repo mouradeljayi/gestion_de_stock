@@ -5,7 +5,6 @@ import com.eljayi.gestiondestock.dto.CategorieDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
-import com.eljayi.gestiondestock.model.Categorie;
 import com.eljayi.gestiondestock.repository.CategorieRepository;
 import com.eljayi.gestiondestock.services.CategorieService;
 import com.eljayi.gestiondestock.validator.CategorieValidator;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,11 +42,12 @@ public class CategorieServiceImpl implements CategorieService {
             log.error("ID de la categorie est null");
             return null;
         }
-        Optional<Categorie> categorie= categorieRepository.findById(id);
-        return Optional.of(CategorieDto.fromEntity(categorie.get())).orElseThrow(() ->
-                new EntityNotFoundException(
-                        "Aucune categorie avec l'ID "+ id +"n'est trouvée dans la BDD", ErrorCodes.CATEGORY_NOT_FOUND)
-        );
+        return categorieRepository.findById(id)
+                .map(CategorieDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Aucune categorie avec l'ID = " + id + " n'été trouvée dans la BDD",
+                        ErrorCodes.CATEGORY_NOT_FOUND
+                ));
     }
 
     @Override
@@ -59,11 +58,12 @@ public class CategorieServiceImpl implements CategorieService {
             log.error("Code de la categorie est null");
             return null;
         }
-        Optional<Categorie> categorie = categorieRepository.findCategorieByCode(code);
-        return Optional.of(CategorieDto.fromEntity(categorie.get())).orElseThrow(() ->
-                new EntityNotFoundException(
-                        "Aucune categorie avec le code "+ code +"n'est trouvée dans la BDD", ErrorCodes.CATEGORY_NOT_FOUND)
-        );
+        return categorieRepository.findCategorieByCode(code)
+                .map(CategorieDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Aucune categorie avec le code = " + code + " n'été trouvée dans la BDD",
+                        ErrorCodes.CATEGORY_NOT_FOUND
+                ));
     }
 
     @Override

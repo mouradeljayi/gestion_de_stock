@@ -5,7 +5,6 @@ import com.eljayi.gestiondestock.dto.UtilisateurDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
-import com.eljayi.gestiondestock.model.Utilisateur;
 import com.eljayi.gestiondestock.repository.UtilisateurRepository;
 import com.eljayi.gestiondestock.services.UtilisateurService;
 import com.eljayi.gestiondestock.validator.UtilisateurValidator;
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,11 +40,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             log.error("ID de l'utilisateur est null");
             return null;
         }
-        Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
-        return Optional.of(UtilisateurDto.fromEntity(utilisateur.get())).orElseThrow(() ->
-                new EntityNotFoundException(
-                        "Aucun utilisateur avec l'ID "+ id +"n'est trouvé dans la BDD", ErrorCodes.UTILISATEUR_NOT_FOUND)
-        );
+        return utilisateurRepository.findById(id)
+                .map(UtilisateurDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Aucun utilisateur avec l'ID = " + id + " n'été trouvé dans la BDD",
+                        ErrorCodes.UTILISATEUR_NOT_FOUND
+                ));
     }
 
     @Override
