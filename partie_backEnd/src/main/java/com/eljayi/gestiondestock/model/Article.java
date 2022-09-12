@@ -46,7 +46,7 @@ public class Article extends AbstractEntity {
     private List<LigneCommandeClient> ligneCommandeClients;
 
     @OneToMany(mappedBy = "article")
-    private List<LigneCommandeFournisseur> ligneCommandeUsines;
+    private List<LigneCommandeFournisseur> ligneCommandeFournisseurs;
 
     @OneToMany(mappedBy = "article")
     private List<MouvementStock> mouvementStocks;

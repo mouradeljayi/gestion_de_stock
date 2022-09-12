@@ -23,8 +23,6 @@ public class MouvementStockDto {
 
     private TypeMvtStock typeMvtStock;
 
-    private Integer  idEntreprise;
-
     public MouvementStockDto fromEntity (MouvementStock mouvementstock){
         if(mouvementstock == null){
             return null;
@@ -33,7 +31,8 @@ public class MouvementStockDto {
                 .id(mouvementstock.getId())
                 .quantite(mouvementstock.getQuantite())
                 .dateMvt(mouvementstock.getDateMvt())
-                .idEntreprise(mouvementstock.getIdEntreprise())
+                .article(ArticleDto.fromEntity(mouvementstock.getArticle()))
+                .typeMvtStock(mouvementstock.getTypeMvtStock())
                 .build();
     }
     public MouvementStock toEntity (MouvementStockDto mouvementstockDto){
@@ -44,7 +43,8 @@ public class MouvementStockDto {
         mouvementstock.setId(mouvementstockDto.getId());
         mouvementstock.setQuantite(mouvementstockDto.getQuantite());
         mouvementstock.setDateMvt(mouvementstock.getDateMvt());
-        mouvementstock.setIdEntreprise(mouvementstockDto.getIdEntreprise());
+        mouvementstock.setArticle(ArticleDto.toEntity(mouvementstockDto.getArticle()));
+        mouvementstock.setTypeMvtStock(mouvementstock.getTypeMvtStock());
         return mouvementstock;
     }
 }

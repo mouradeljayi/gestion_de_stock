@@ -3,6 +3,8 @@ package com.eljayi.gestiondestock.dto;
 import com.eljayi.gestiondestock.model.Vente;
 import lombok.Builder;
 import lombok.Data;
+import java.util.List;
+
 
 import java.time.Instant;
 
@@ -18,9 +20,11 @@ public class VenteDto {
 
     private String commentaire;
 
+    private List<LigneVenteDto> ligneVentes;
+
     private Integer  idEntreprise;
 
-    public VenteDto fromEntity(Vente vente) {
+    public static VenteDto fromEntity(Vente vente) {
         if (vente == null) {
             return null;
         }
@@ -32,7 +36,7 @@ public class VenteDto {
                 .idEntreprise(vente.getIdEntreprise())
                 .build();
     }
-    public Vente toEntity(VenteDto venteDto){
+    public static Vente toEntity(VenteDto venteDto){
         if(venteDto == null){
             return null;
         }

@@ -1,7 +1,6 @@
 package com.eljayi.gestiondestock.dto;
 
 import com.eljayi.gestiondestock.model.Utilisateur;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 

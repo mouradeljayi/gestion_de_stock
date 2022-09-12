@@ -22,12 +22,14 @@ public enum ErrorCodes {
     MOUVEMENT_STOCK_NOT_FOUND(11000),
     UTILISATEUR_NOT_FOUND(12000),
     UTILISATEUR_NOT_VALID(12001),
-    VENTE_NOT_FOUND(13000);
+    VENTE_NOT_FOUND(13000),
+    VENTE_NOT_VALID(13001);
+
 
     private int code;
 
     ErrorCodes(int code){
-        this.code=code;
+        this.code = code;
     }
     public int getCode(){
         return code;

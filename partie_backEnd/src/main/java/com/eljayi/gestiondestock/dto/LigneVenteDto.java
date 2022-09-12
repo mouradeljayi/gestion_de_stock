@@ -14,6 +14,8 @@ public class LigneVenteDto {
 
     private VenteDto vente;
 
+    private ArticleDto article;
+
     private BigDecimal quantite;
 
     private BigDecimal prixUnitaire;
@@ -28,6 +30,7 @@ public class LigneVenteDto {
                 .id(lignevente.getId())
                 .quantite(lignevente.getQuantite())
                 .prixUnitaire(lignevente.getPrixUnitaire())
+                .article(ArticleDto.fromEntity(lignevente.getArticle()))
                 .idEntreprise(lignevente.getIdEntreprise())
                 .build();
     }
@@ -39,6 +42,7 @@ public class LigneVenteDto {
         lignevente.setId(ligneventeDto.getId());
         lignevente.setQuantite(ligneventeDto.getQuantite());
         lignevente.setPrixUnitaire(lignevente.getPrixUnitaire());
+        lignevente.setArticle(ArticleDto.toEntity(ligneventeDto.getArticle()));
         lignevente.setIdEntreprise(lignevente.getIdEntreprise());
         return lignevente;
     }
