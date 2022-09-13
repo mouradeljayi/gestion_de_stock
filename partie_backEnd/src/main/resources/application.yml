@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3308/gestiondestock?createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/gestion_de_stock?serverTimezone=UTC
     username: root
     password:
   jpa:
@@ -8,25 +8,16 @@ spring:
     database: MYSQL
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: update
-#  datasource:
-#    url: jdbc:mysql://localhost:3308/gestiondest?createDatabaseIfNotExist=true&userSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-#    username: root
-#    password:
-#    driver-classname: com.mysql.cj.jdbc.Driver
-###Specify DBMS
-#  jpa:
-#    database: MYSQL
-#    show-sql: false
-## Hibernate DDL AUTO (create, create-drop, update)
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.MySAL5Dialect
 server:
   port: 8081
+
+flickr:
+  apiKey: 9f7d04a465998080a166a71df1121a6a
+  apiSecret: 4aea2982cc84d512
+  appKey: 72157720842717015-2191041c179c3295
+  appSecret: d1d10a19096ea935
 
 
