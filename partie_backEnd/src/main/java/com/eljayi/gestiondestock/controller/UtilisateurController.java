@@ -4,9 +4,11 @@ package com.eljayi.gestiondestock.controller;
 import com.eljayi.gestiondestock.controller.api.UtilisateurApi;
 import com.eljayi.gestiondestock.dto.UtilisateurDto;
 import com.eljayi.gestiondestock.services.UtilisateurService;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
 public class UtilisateurController implements UtilisateurApi {
     private final UtilisateurService utilisateurService;
 

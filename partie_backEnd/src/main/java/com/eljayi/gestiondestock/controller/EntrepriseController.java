@@ -4,9 +4,11 @@ package com.eljayi.gestiondestock.controller;
 import com.eljayi.gestiondestock.controller.api.EntrepriseApi;
 import com.eljayi.gestiondestock.dto.EntrepriseDto;
 import com.eljayi.gestiondestock.services.EntrepriseService;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
 public class EntrepriseController implements EntrepriseApi {
 
     private final EntrepriseService entrepriseService;

@@ -3,10 +3,12 @@ package com.eljayi.gestiondestock.controller;
 import com.eljayi.gestiondestock.controller.api.FournisseurApi;
 import com.eljayi.gestiondestock.services.FournisseurService;
 import com.eljayi.gestiondestock.dto.FournisseurDto;
+import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.List;
 
+@RestController
 public class FournisseurController implements FournisseurApi {
 
     private final FournisseurService fournisseurService;
