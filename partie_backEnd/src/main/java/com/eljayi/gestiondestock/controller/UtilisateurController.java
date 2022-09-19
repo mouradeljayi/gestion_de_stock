@@ -34,6 +34,5 @@ public class UtilisateurController implements UtilisateurApi {
     @Override
     public void delete(Integer id) {
         utilisateurService.delete(id);
-
     }
 }

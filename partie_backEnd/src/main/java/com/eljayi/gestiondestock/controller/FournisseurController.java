@@ -35,6 +35,5 @@ public class FournisseurController implements FournisseurApi {
     @Override
     public void delete(Integer id) {
         fournisseurService.delete(id);
-
     }
 }

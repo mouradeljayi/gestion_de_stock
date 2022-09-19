@@ -35,6 +35,5 @@ public class EntrepriseController implements EntrepriseApi {
     @Override
     public void delete(Integer id) {
         entrepriseService.delete(id);
-
     }
 }
