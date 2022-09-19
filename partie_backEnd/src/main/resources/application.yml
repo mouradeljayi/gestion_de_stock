@@ -8,6 +8,8 @@ spring:
     database: MYSQL
     properties:
       hibernate:
+        ejb:
+          interceptor: com.eljayi.gestiondestock.interceptor.Interceptor
         dialect: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: update
