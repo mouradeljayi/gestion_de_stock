@@ -1,13 +1,18 @@
 package com.eljayi.gestiondestock.handlers;
 
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
+import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.Collection;
+import java.util.Collections;
 
 
 @RestControllerAdvice
@@ -39,7 +44,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             .build();
 
         return new ResponseEntity<>(errorDto, badRequest);
+    }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public  ResponseEntity<ErrorDto> handleException (BadCredentialsException exception, WebRequest webRequest) {
+        final HttpStatus badRequest = HttpStatus.BAD_REQUEST;
 
+        final  ErrorDto errorDto = ErrorDto.builder()
+                .code(ErrorCodes.BAD_CREDENTIALS)
+                .httpCode(badRequest.value())
+                .message(exception.getMessage())
+                .errors(Collections.singletonList("Login et / ou mot de passe incorretce"))
+                .build();
+        return new ResponseEntity<>(errorDto, badRequest);
     }
 }

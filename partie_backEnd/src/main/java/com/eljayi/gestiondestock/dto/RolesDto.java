@@ -24,7 +24,6 @@ public class RolesDto {
         return RolesDto.builder()
                 .id(roles.getId())
                 .roleName(roles.getRoleName())
-                .idEntreprise(roles.getIdEntreprise())
                 .build();
     }
     public static Roles toEntity (RolesDto rolesDto){
@@ -34,7 +33,6 @@ public class RolesDto {
         Roles roles = new Roles();
         roles.setId(rolesDto.getId());
         roles.setRoleName(rolesDto.getRoleName());
-        roles.setIdEntreprise(rolesDto.getIdEntreprise());
         return roles;
     }
 }

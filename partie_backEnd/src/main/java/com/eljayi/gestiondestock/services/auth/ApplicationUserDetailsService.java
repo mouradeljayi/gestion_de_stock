@@ -1,32 +1,33 @@
 package com.eljayi.gestiondestock.services.auth;
 
-import com.eljayi.gestiondestock.exception.EntityNotFoundException;
-import com.eljayi.gestiondestock.exception.ErrorCodes;
-import com.eljayi.gestiondestock.model.Utilisateur;
-import com.eljayi.gestiondestock.repository.UtilisateurRepository;
-import org.springframework.security.core.userdetails.User;
+import com.eljayi.gestiondestock.dto.UtilisateurDto;
+import com.eljayi.gestiondestock.model.auth.ExtendedUser;
+import com.eljayi.gestiondestock.services.UtilisateurService;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ApplicationUserDetailsService implements UserDetailsService {
 
-    private final UtilisateurRepository repository;
+    private final UtilisateurService service;
 
-    public ApplicationUserDetailsService(UtilisateurRepository repository) {
-        this.repository = repository;
+    public ApplicationUserDetailsService( UtilisateurService service) {
+        this.service = service;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Utilisateur utilisateur = repository.findByEmail(email)
-                .orElseThrow(() ->
-                        new EntityNotFoundException("Aucun utilisateur avec l'email fournit", ErrorCodes.UTILISATEUR_NOT_FOUND));
+        UtilisateurDto utilisateur = service.findByEmail(email);
 
-        return new User(utilisateur.getEmail(), utilisateur.getMotDePasse(), Collections.emptyList());
+        List<SimpleGrantedAuthority> authorities =  new ArrayList<>();
+        utilisateur.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
+
+        return new ExtendedUser(utilisateur.getEmail(), utilisateur.getMotDePasse(), utilisateur.getEntreprise().getId(), authorities);
     }
 }

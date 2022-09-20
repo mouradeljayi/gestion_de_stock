@@ -2,7 +2,9 @@ package com.eljayi.gestiondestock.controller;
 
 import com.eljayi.gestiondestock.dto.auth.AuthenticationRequest;
 import com.eljayi.gestiondestock.dto.auth.AuthenticationResponse;
+import com.eljayi.gestiondestock.model.auth.ExtendedUser;
 import com.eljayi.gestiondestock.services.auth.ApplicationUserDetailsService;
+import com.eljayi.gestiondestock.utils.JwtUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,12 +23,15 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final ApplicationUserDetailsService userDetailsService;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, ApplicationUserDetailsService userDetailsService) {
+    private final JwtUtil jwtUtil;
+
+    public AuthenticationController(AuthenticationManager authenticationManager, ApplicationUserDetailsService userDetailsService, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
+        this.jwtUtil = jwtUtil;
     }
 
-    @PostMapping("authenticate")
+    @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -36,6 +41,7 @@ public class AuthenticationController {
         );
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getLogin());
-        return  ResponseEntity.ok(AuthenticationResponse.builder().accessToken("dummy_access_token").build());
+        final String jwt = jwtUtil.generateToken( (ExtendedUser) userDetails);
+        return  ResponseEntity.ok(AuthenticationResponse.builder().accessToken(jwt).build());
     }
 }
