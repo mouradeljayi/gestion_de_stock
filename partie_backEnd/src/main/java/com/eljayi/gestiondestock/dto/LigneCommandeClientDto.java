@@ -24,6 +24,7 @@ public class LigneCommandeClientDto {
 
     private Integer  idEntreprise;
 
+
     public static LigneCommandeClientDto fromEntity (LigneCommandeClient lignecommandeclient){
         if(lignecommandeclient == null){
             return null;

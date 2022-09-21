@@ -1,9 +1,11 @@
 package com.eljayi.gestiondestock.dto;
 
 import com.eljayi.gestiondestock.model.CommandeClient;
+import com.eljayi.gestiondestock.model.EtatCommande;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.time.Instant;
 import java.util.List;
 
@@ -16,6 +18,8 @@ public class CommandeClientDto {
     private String code;
 
     private Instant dateCommande;
+
+    private EtatCommande etatCommande;
 
     private ClientDto client;
 
@@ -31,6 +35,7 @@ public class CommandeClientDto {
                 .id(commandeclient.getId())
                 .code(commandeclient.getCode())
                 .dateCommande(commandeclient.getDateCommande())
+                .etatCommande(commandeclient.getEtatCommande())
                 .client(ClientDto.fromEntity(commandeclient.getClient()))
                 .idEntreprise(commandeclient.getIdEntreprise())
                 .build();
@@ -44,7 +49,12 @@ public class CommandeClientDto {
         commandeclient.setCode(commandeclientDto.getCode());
         commandeclient.setDateCommande(commandeclientDto.getDateCommande());
         commandeclient.setIdEntreprise(commandeclientDto.getIdEntreprise());
+        commandeclient.setEtatCommande(commandeclientDto.getEtatCommande());
         //commandeclient.setClient(ClientDto.toEntity(commandeclientDto.getClient()));
         return commandeclient;
+    }
+
+    public boolean isCommandeLivree() {
+        return EtatCommande.LIVREE.equals(this.etatCommande);
     }
 }
