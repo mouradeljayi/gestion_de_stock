@@ -1,6 +1,7 @@
 package com.eljayi.gestiondestock.dto;
 
 import com.eljayi.gestiondestock.model.CommandeFournisseur;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import java.time.Instant;
@@ -16,6 +17,7 @@ public class CommandeFournisseurDto {
 
     private Instant dateCommande;
 
+    @JsonIgnore
     private List<LigneCommandeFournisseurDto> ligneCommandeFournisseurs;
 
     private FournisseurDto fournisseur;

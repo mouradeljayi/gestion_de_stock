@@ -2,10 +2,10 @@ package com.eljayi.gestiondestock.dto;
 
 import com.eljayi.gestiondestock.model.CommandeClient;
 import com.eljayi.gestiondestock.model.EtatCommande;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.time.Instant;
 import java.util.List;
 
@@ -23,6 +23,7 @@ public class CommandeClientDto {
 
     private ClientDto client;
 
+    @JsonIgnore
     private List<LigneCommandeClientDto> ligneCommandeClients;
 
     private Integer  idEntreprise;

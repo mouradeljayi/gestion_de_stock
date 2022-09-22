@@ -2,6 +2,7 @@ package com.eljayi.gestiondestock.controller;
 
 import com.eljayi.gestiondestock.controller.api.CommandeClientApi;
 import com.eljayi.gestiondestock.dto.CommandeClientDto;
+import com.eljayi.gestiondestock.dto.LigneCommandeClientDto;
 import com.eljayi.gestiondestock.model.EtatCommande;
 import com.eljayi.gestiondestock.services.CommandeClientService;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,16 @@ public class CommandeClientController implements CommandeClientApi {
     }
 
     @Override
+    public ResponseEntity<CommandeClientDto> updateArticle(Integer idCommande, Integer idLigneCommande, Integer idArticle) {
+        return ResponseEntity.ok(commandeClientService.updateArticle(idCommande, idLigneCommande, idArticle));
+    }
+
+    @Override
+    public ResponseEntity<CommandeClientDto> deleteArticle(Integer idCommande, Integer idLigneCommande) {
+        return  ResponseEntity.ok(commandeClientService.deleteArticle(idCommande, idLigneCommande));
+    }
+
+    @Override
     public ResponseEntity<CommandeClientDto> findbyId(Integer id) {
         return ResponseEntity.ok(commandeClientService.findbyId(id));
     }
@@ -53,6 +64,11 @@ public class CommandeClientController implements CommandeClientApi {
     @Override
     public ResponseEntity<List<CommandeClientDto>> findAll() {
         return ResponseEntity.ok(commandeClientService.findAll());
+    }
+
+    @Override
+    public ResponseEntity<List<LigneCommandeClientDto>> findAllLignesCommandesClientByCommandeClientId(Integer idCommande) {
+        return ResponseEntity.ok(commandeClientService.findAllLignesCommandesClientByCommandeClientId(idCommande));
     }
 
     @Override
