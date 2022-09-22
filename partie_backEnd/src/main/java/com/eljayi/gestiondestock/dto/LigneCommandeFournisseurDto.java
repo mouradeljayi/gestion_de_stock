@@ -21,7 +21,7 @@ public class LigneCommandeFournisseurDto {
 
     private Integer  idEntreprise;
 
-    public LigneCommandeFournisseurDto fromEntity (LigneCommandeFournisseur ligneCommandeFournisseur){
+    public static LigneCommandeFournisseurDto fromEntity(LigneCommandeFournisseur ligneCommandeFournisseur){
         if(ligneCommandeFournisseur == null){
             return null;
         }

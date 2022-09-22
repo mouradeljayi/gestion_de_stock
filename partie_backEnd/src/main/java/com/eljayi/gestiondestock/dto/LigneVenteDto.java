@@ -22,7 +22,7 @@ public class LigneVenteDto {
 
     private Integer  idEntreprise;
 
-    public LigneVenteDto fromEntity (LigneVente lignevente){
+    public static LigneVenteDto fromEntity(LigneVente lignevente){
         if(lignevente == null){
             return null;
         }

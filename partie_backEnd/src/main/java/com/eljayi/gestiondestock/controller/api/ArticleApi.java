@@ -1,6 +1,9 @@
 package com.eljayi.gestiondestock.controller.api;
 
 import com.eljayi.gestiondestock.dto.ArticleDto;
+import com.eljayi.gestiondestock.dto.LigneCommandeClientDto;
+import com.eljayi.gestiondestock.dto.LigneCommandeFournisseurDto;
+import com.eljayi.gestiondestock.dto.LigneVenteDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -44,6 +47,15 @@ public interface ArticleApi {
     })
     @GetMapping( value = APP_ROOT + "/articles/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<ArticleDto> findAll();
+
+    @GetMapping( value = APP_ROOT + "/articles/historique/ventes/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneVenteDto> findHistoriqueVentes(@PathVariable("idArticle") Integer idArticle);
+    @GetMapping( value = APP_ROOT + "/articles/historique/commandesclient/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeClientDto> findHistoriqueCommandeClient(@PathVariable("idArticle") Integer idArticle);
+    @GetMapping( value = APP_ROOT + "/articles/historique/commandesfournisseur/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeFournisseurDto> findHistoriqueCommandeFournisseur(@PathVariable("idArticle") Integer idArticle);
+    @GetMapping( value = APP_ROOT + "/articles/{idCategory}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<ArticleDto> findAllArticlesByIdCategory(@PathVariable("idCategory") Integer idCategory);
 
     @Operation(summary = "Supprimer un article", description = "Cette méthode permet de supprimer un article")
     @ApiResponses(value = {

@@ -3,6 +3,9 @@ package com.eljayi.gestiondestock.controller;
 
 import com.eljayi.gestiondestock.controller.api.ArticleApi;
 import com.eljayi.gestiondestock.dto.ArticleDto;
+import com.eljayi.gestiondestock.dto.LigneCommandeClientDto;
+import com.eljayi.gestiondestock.dto.LigneCommandeFournisseurDto;
+import com.eljayi.gestiondestock.dto.LigneVenteDto;
 import com.eljayi.gestiondestock.services.ArticleService;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +37,26 @@ public class ArticleController implements ArticleApi {
     @Override
     public List<ArticleDto> findAll() {
         return articleService.findAll();
+    }
+
+    @Override
+    public List<LigneVenteDto> findHistoriqueVentes(Integer idArticle) {
+        return articleService.findHistoriqueVentes(idArticle);
+    }
+
+    @Override
+    public List<LigneCommandeClientDto> findHistoriqueCommandeClient(Integer idArticle) {
+        return articleService.findHistoriqueCommandeClient(idArticle);
+    }
+
+    @Override
+    public List<LigneCommandeFournisseurDto> findHistoriqueCommandeFournisseur(Integer idArticle) {
+        return articleService.findHistoriqueCommandeFournisseur(idArticle);
+    }
+
+    @Override
+    public List<ArticleDto> findAllArticlesByIdCategory(Integer idCategory) {
+        return articleService.findAllArticlesByIdCategory(idCategory);
     }
 
     @Override
