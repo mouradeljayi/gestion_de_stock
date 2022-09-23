@@ -5,9 +5,13 @@ import com.eljayi.gestiondestock.dto.CategorieDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
+import com.eljayi.gestiondestock.exception.InvalidOperationException;
+import com.eljayi.gestiondestock.model.Article;
+import com.eljayi.gestiondestock.repository.ArticleRepository;
 import com.eljayi.gestiondestock.repository.CategorieRepository;
 import com.eljayi.gestiondestock.services.CategorieService;
 import com.eljayi.gestiondestock.validator.CategorieValidator;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,12 +21,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class CategorieServiceImpl implements CategorieService {
     private final CategorieRepository categorieRepository;
 
-    public CategorieServiceImpl(CategorieRepository categorieRepository) {
-        this.categorieRepository = categorieRepository;
-    }
+    private final ArticleRepository articleRepository;
+
 
     @Override
     public CategorieDto save(CategorieDto dto) {
@@ -79,6 +83,10 @@ public class CategorieServiceImpl implements CategorieService {
         if(id == null) {
             log.error("ID de la categorie est null");
             return;
+        }
+        List<Article> articles = articleRepository.findAllByCategorieId(id);
+        if (!articles.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer une catégorie déja utilisé dans des articles", ErrorCodes.CATEGORY_ALREADY_IN_USE);
         }
         categorieRepository.deleteById(id);
     }

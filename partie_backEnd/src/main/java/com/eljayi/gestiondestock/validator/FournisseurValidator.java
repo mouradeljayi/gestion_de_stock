@@ -19,19 +19,19 @@ public class FournisseurValidator {
         }
         if(!StringUtils.hasLength(dto.getNom()))
         {
-            errors.add("Veuillez renseigner le nom du client");
+            errors.add("Veuillez renseigner le nom du fournisseur");
         }
         if(!StringUtils.hasLength(dto.getPrenom()))
         {
-            errors.add("Veuillez renseigner le prénom du client");
+            errors.add("Veuillez renseigner le prénom du fournisseur");
         }
         if(!StringUtils.hasLength(dto.getMail()))
         {
-            errors.add("Veuillez renseigner le mail du client");
+            errors.add("Veuillez renseigner le mail du fournisseur");
         }
         if(!StringUtils.hasLength(dto.getNumTel()))
         {
-            errors.add("Veuillez renseigner le numéro de telephone du client");
+            errors.add("Veuillez renseigner le numéro de telephone du fournisseur");
         }
         return errors;
     }

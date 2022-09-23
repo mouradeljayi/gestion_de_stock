@@ -7,7 +7,11 @@ import com.eljayi.gestiondestock.dto.LigneVenteDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
+import com.eljayi.gestiondestock.exception.InvalidOperationException;
 import com.eljayi.gestiondestock.model.Article;
+import com.eljayi.gestiondestock.model.LigneCommandeClient;
+import com.eljayi.gestiondestock.model.LigneCommandeFournisseur;
+import com.eljayi.gestiondestock.model.LigneVente;
 import com.eljayi.gestiondestock.repository.ArticleRepository;
 import com.eljayi.gestiondestock.repository.LigneCommandeClientRepository;
 import com.eljayi.gestiondestock.repository.LigneCommandeFournisseurRepository;
@@ -117,6 +121,22 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("ID de l'article est null");
             return;
         }
+
+        List<LigneCommandeClient> ligneCommandeClients = ligneCommandeClientRepository.findAllByArticleId(id);
+        if (!ligneCommandeClients.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un article déja utilisé dans des commandes client", ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+
+        List<LigneCommandeFournisseur> ligneCommandeFournisseurs = ligneCommandeFournisseurRepository.findAllByArticleId(id);
+        if (!ligneCommandeFournisseurs.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un article déja utilisé dans des commandes fournisseur", ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+
+        List<LigneVente> ligneVentes = ligneVenteRepository.findAllByArticleId(id);
+        if (!ligneVentes.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un article déja utilisé dans des ventes", ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+
         articleRepository.deleteById(id);
     }
 }

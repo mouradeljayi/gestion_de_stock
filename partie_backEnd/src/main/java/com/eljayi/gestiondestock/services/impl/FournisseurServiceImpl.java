@@ -5,6 +5,9 @@ import com.eljayi.gestiondestock.dto.FournisseurDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
+import com.eljayi.gestiondestock.exception.InvalidOperationException;
+import com.eljayi.gestiondestock.model.CommandeFournisseur;
+import com.eljayi.gestiondestock.repository.CommandeFournisseurRepository;
 import com.eljayi.gestiondestock.repository.FournisseurRepository;
 import com.eljayi.gestiondestock.services.FournisseurService;
 import com.eljayi.gestiondestock.validator.FournisseurValidator;
@@ -18,9 +21,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FournisseurServiceImpl implements FournisseurService {
     private final FournisseurRepository fournisseurRepository;
+    private final CommandeFournisseurRepository commandeFournisseurRepository;
 
-    public FournisseurServiceImpl(FournisseurRepository fournisseurRepository) {
+    public FournisseurServiceImpl(FournisseurRepository fournisseurRepository, CommandeFournisseurRepository commandeFournisseurRepository) {
         this.fournisseurRepository = fournisseurRepository;
+        this.commandeFournisseurRepository = commandeFournisseurRepository;
     }
 
     @Override
@@ -60,6 +65,10 @@ public class FournisseurServiceImpl implements FournisseurService {
         if(id == null) {
             log.error("ID de fournisseur est null");
             return;
+        }
+        List<CommandeFournisseur> commandeFournisseurs = commandeFournisseurRepository.findAllByFournisseurId(id);
+        if (!commandeFournisseurs.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un fournisseur qui a déja des commandes", ErrorCodes.FOURNISSEUR_ALREADY_IN_USE);
         }
         fournisseurRepository.deleteById(id);
     }

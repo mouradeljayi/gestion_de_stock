@@ -6,6 +6,7 @@ import com.eljayi.gestiondestock.dto.VenteDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
+import com.eljayi.gestiondestock.exception.InvalidOperationException;
 import com.eljayi.gestiondestock.model.*;
 import com.eljayi.gestiondestock.repository.ArticleRepository;
 import com.eljayi.gestiondestock.repository.LigneVenteRepository;
@@ -106,6 +107,10 @@ public class VenteServiceImpl implements VenteService {
         if (id == null) {
             log.error("Vente ID is null");
             return;
+        }
+        List<LigneVente> ligneVentes = ligneVenteRepository.findAllByVenteId(id);
+        if (!ligneVentes.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer une vente qui est déja utilisée", ErrorCodes.VENTE_ALREADY_IN_USE);
         }
         venteRepository.deleteById(id);
     }

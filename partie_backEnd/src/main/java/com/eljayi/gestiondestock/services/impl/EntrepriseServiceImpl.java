@@ -27,7 +27,6 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 
     private final EntrepriseRepository entrepriseRepository;
     private final RolesRepository rolesRepository;
-    
     private final UtilisateurService utilisateurService;
 
     public EntrepriseServiceImpl(EntrepriseRepository entrepriseRepository, RolesRepository rolesRepository, UtilisateurService utilisateurService) {

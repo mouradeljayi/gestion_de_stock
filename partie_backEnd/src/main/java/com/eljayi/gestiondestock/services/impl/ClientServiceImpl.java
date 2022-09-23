@@ -5,9 +5,13 @@ import com.eljayi.gestiondestock.dto.ClientDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
+import com.eljayi.gestiondestock.exception.InvalidOperationException;
+import com.eljayi.gestiondestock.model.CommandeClient;
 import com.eljayi.gestiondestock.repository.ClientRepository;
+import com.eljayi.gestiondestock.repository.CommandeClientRepository;
 import com.eljayi.gestiondestock.services.ClientService;
 import com.eljayi.gestiondestock.validator.ClientValidator;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +20,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
-
-    public ClientServiceImpl(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+    private final CommandeClientRepository commandeClientRepository;
 
     @Override
     public ClientDto save(ClientDto dto) {
@@ -60,6 +62,10 @@ public class ClientServiceImpl implements ClientService {
         if(id == null) {
             log.error("ID du client est null");
             return;
+        }
+        List<CommandeClient> commandeClients = commandeClientRepository.findAllByClientId(id);
+        if (!commandeClients.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un client qui a déja des commandes", ErrorCodes.CLIENT_ALREADY_IN_USE);
         }
         clientRepository.deleteById(id);
 

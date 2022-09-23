@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface LigneVenteRepository extends JpaRepository<LigneVente, Integer> {
     List<LigneVente> findAllByArticleId(Integer id);
+    List<LigneVente> findAllByVenteId(Integer id);
 }
