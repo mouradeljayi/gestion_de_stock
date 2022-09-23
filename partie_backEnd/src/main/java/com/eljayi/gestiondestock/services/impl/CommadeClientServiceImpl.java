@@ -1,9 +1,6 @@
 package com.eljayi.gestiondestock.services.impl;
 
-import com.eljayi.gestiondestock.dto.ArticleDto;
-import com.eljayi.gestiondestock.dto.ClientDto;
-import com.eljayi.gestiondestock.dto.CommandeClientDto;
-import com.eljayi.gestiondestock.dto.LigneCommandeClientDto;
+import com.eljayi.gestiondestock.dto.*;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
@@ -14,6 +11,7 @@ import com.eljayi.gestiondestock.repository.ClientRepository;
 import com.eljayi.gestiondestock.repository.CommandeClientRepository;
 import com.eljayi.gestiondestock.repository.LigneCommandeClientRepository;
 import com.eljayi.gestiondestock.services.CommandeClientService;
+import com.eljayi.gestiondestock.services.MouvementStockService;
 import com.eljayi.gestiondestock.validator.ArticleValidator;
 import com.eljayi.gestiondestock.validator.CommandeClientValidator;
 import lombok.AllArgsConstructor;
@@ -22,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +34,8 @@ public class CommadeClientServiceImpl implements CommandeClientService {
     private CommandeClientRepository commandeClientRepository;
     private ClientRepository clientRepository;
     private ArticleRepository articleRepository;
+
+    private MouvementStockService mouvementStockService;
     private LigneCommandeClientRepository ligneCommandeClientRepository;
 
     @Override
@@ -151,12 +152,14 @@ public class CommadeClientServiceImpl implements CommandeClientService {
             );
         }
         CommandeClientDto commandeClient = checkEtatCommande(idCommande);
-
         commandeClient.setEtatCommande(etatCommande);
+        CommandeClient savedCommandeClient = commandeClientRepository.save(CommandeClientDto.toEntity(commandeClient));
 
-        return CommandeClientDto.fromEntity(
-                commandeClientRepository.save(CommandeClientDto.toEntity(commandeClient)
-        ));
+        if (commandeClient.isCommandeLivree()) {
+            updateMouvementStock(idCommande);
+        }
+
+        return CommandeClientDto.fromEntity(savedCommandeClient);
     }
 
     @Override
@@ -297,6 +300,22 @@ public class CommadeClientServiceImpl implements CommandeClientService {
             throw new EntityNotFoundException("Aucune ligne commande avec l'ID " + idLigneCommande + " n'a été trouvée dans le BDD" , ErrorCodes.COMMANDE_CLIENT_NOT_FOUND);
         }
         return ligneCommandeClientOptional;
+    }
+
+    private void updateMouvementStock(Integer idCommande) {
+        List<LigneCommandeClient> ligneCommandeClients = ligneCommandeClientRepository.findAllByCommandeClientId(idCommande);
+
+        ligneCommandeClients.forEach(ligne -> {
+            MouvementStockDto mouvementStockDto = MouvementStockDto.builder()
+                    .article(ArticleDto.fromEntity(ligne.getArticle()))
+                    .dateMvt(Instant.now())
+                    .typeMvtStock(TypeMvtStock.SORTIE)
+                    .sourceMvt(SourceMvtStock.COMMANDE_CLIENT)
+                    .quantite(ligne.getQuantite())
+                    .idEntreprise(ligne.getIdEntreprise())
+                    .build();
+            mouvementStockService.sortieStock(mouvementStockDto);
+        });
     }
 
 }

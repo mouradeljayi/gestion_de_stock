@@ -1,15 +1,16 @@
 package com.eljayi.gestiondestock.services.impl;
 
+import com.eljayi.gestiondestock.dto.ArticleDto;
+import com.eljayi.gestiondestock.dto.MouvementStockDto;
 import com.eljayi.gestiondestock.dto.VenteDto;
 import com.eljayi.gestiondestock.exception.EntityNotFoundException;
 import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidEntityException;
-import com.eljayi.gestiondestock.model.Article;
-import com.eljayi.gestiondestock.model.LigneVente;
-import com.eljayi.gestiondestock.model.Vente;
+import com.eljayi.gestiondestock.model.*;
 import com.eljayi.gestiondestock.repository.ArticleRepository;
 import com.eljayi.gestiondestock.repository.LigneVenteRepository;
 import com.eljayi.gestiondestock.repository.VenteRepository;
+import com.eljayi.gestiondestock.services.MouvementStockService;
 import com.eljayi.gestiondestock.services.VenteService;
 import com.eljayi.gestiondestock.validator.VenteValidator;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +32,8 @@ public class VenteServiceImpl implements VenteService {
     private ArticleRepository articleRepository;
     private VenteRepository venteRepository;
     private LigneVenteRepository ligneVenteRepository;
+
+    private MouvementStockService mouvementStockService;
 
     @Override
     public VenteDto save(VenteDto dto) {
@@ -53,10 +57,11 @@ public class VenteServiceImpl implements VenteService {
         }
         Vente savedVente =  venteRepository.save(VenteDto.toEntity(dto));
 
-        dto.getLigneVentes().forEach(ligne -> {
-            LigneVente ligneVente = ligne.toEntity(ligne);
+        dto.getLigneVentes().forEach(ligneDto -> {
+            LigneVente ligneVente = ligneDto.toEntity(ligneDto);
             ligneVente.setVente(savedVente);
             ligneVenteRepository.save(ligneVente);
+            updateMouvementStock(ligneVente);
         });
 
         return VenteDto.fromEntity(savedVente);
@@ -103,5 +108,17 @@ public class VenteServiceImpl implements VenteService {
             return;
         }
         venteRepository.deleteById(id);
+    }
+
+    private void updateMouvementStock(LigneVente ligne) {
+        MouvementStockDto mouvementStockDto = MouvementStockDto.builder()
+                .article(ArticleDto.fromEntity(ligne.getArticle()))
+                .dateMvt(Instant.now())
+                .typeMvtStock(TypeMvtStock.SORTIE)
+                .sourceMvt(SourceMvtStock.VENTE)
+                .quantite(ligne.getQuantite())
+                .idEntreprise(ligne.getIdEntreprise())
+                .build();
+        mouvementStockService.sortieStock(mouvementStockDto);
     }
 }

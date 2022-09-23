@@ -24,8 +24,11 @@ public class MouvementStock extends AbstractEntity {
     @JoinColumn(name = "idarticle")
     private Article article;
 
-    @Column(name = "typeMvtStock")
+    @Column(name = "typemvt")
     private TypeMvtStock typeMvtStock;
+
+    @Column(name = "sourcemvt")
+    private SourceMvtStock sourceMvt;
 
     @Column(name ="identreprise")
     private Integer  idEntreprise;

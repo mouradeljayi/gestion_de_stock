@@ -8,6 +8,7 @@ import com.eljayi.gestiondestock.exception.InvalidOperationException;
 import com.eljayi.gestiondestock.model.*;
 import com.eljayi.gestiondestock.repository.*;
 import com.eljayi.gestiondestock.services.CommandeFournisseurService;
+import com.eljayi.gestiondestock.services.MouvementStockService;
 import com.eljayi.gestiondestock.validator.ArticleValidator;
 import com.eljayi.gestiondestock.validator.CommandeFournisseurValidator;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +32,8 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
     private FournisseurRepository fournisseurRepository;
     private ArticleRepository articleRepository;
     private LigneCommandeFournisseurRepository ligneCommandeFournisseurRepository;
+
+    private MouvementStockService mouvementStockService;
 
     @Override
     public CommandeFournisseurDto save(CommandeFournisseurDto dto) {
@@ -87,12 +91,14 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
             );
         }
         CommandeFournisseurDto commandeFournisseur = checkEtatCommande(idCommande);
-
         commandeFournisseur.setEtatCommande(etatCommande);
+        CommandeFournisseur savedCommande =  commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(commandeFournisseur));
 
-        return CommandeFournisseurDto.fromEntity(
-                commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(commandeFournisseur)
-                ));
+        if (commandeFournisseur.isCommandeLivree()) {
+            updateMouvementStock(idCommande);
+        }
+
+        return CommandeFournisseurDto.fromEntity(savedCommande);
     }
 
     @Override
@@ -278,5 +284,21 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
                     "Impossible de modifier l'etat commande avec un ID article null", ErrorCodes.COMMANDE_FOURNISSEUR_NOT_EDITABLE
             );
         }
+    }
+
+    private void updateMouvementStock(Integer idCommande) {
+        List<LigneCommandeFournisseur> ligneCommandeFournisseurs = ligneCommandeFournisseurRepository.findAllByCommandeFournisseurId(idCommande);
+
+        ligneCommandeFournisseurs.forEach(ligne -> {
+            MouvementStockDto mouvementStockDto = MouvementStockDto.builder()
+                    .article(ArticleDto.fromEntity(ligne.getArticle()))
+                    .dateMvt(Instant.now())
+                    .typeMvtStock(TypeMvtStock.ENTREE)
+                    .sourceMvt(SourceMvtStock.COMMANDE_FOURNISSEUR)
+                    .quantite(ligne.getQuantite())
+                    .idEntreprise(ligne.getIdEntreprise())
+                    .build();
+            mouvementStockService.entreeStock(mouvementStockDto);
+        });
     }
 }

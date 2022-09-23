@@ -2,6 +2,7 @@ package com.eljayi.gestiondestock.dto;
 
 
 import com.eljayi.gestiondestock.model.MouvementStock;
+import com.eljayi.gestiondestock.model.SourceMvtStock;
 import com.eljayi.gestiondestock.model.TypeMvtStock;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +24,11 @@ public class MouvementStockDto {
 
     private TypeMvtStock typeMvtStock;
 
-    public MouvementStockDto fromEntity (MouvementStock mouvementstock){
+    private SourceMvtStock sourceMvt;
+
+    private Integer idEntreprise;
+
+    public static MouvementStockDto fromEntity(MouvementStock mouvementstock){
         if(mouvementstock == null){
             return null;
         }
@@ -33,18 +38,22 @@ public class MouvementStockDto {
                 .dateMvt(mouvementstock.getDateMvt())
                 .article(ArticleDto.fromEntity(mouvementstock.getArticle()))
                 .typeMvtStock(mouvementstock.getTypeMvtStock())
+                .sourceMvt(mouvementstock.getSourceMvt())
+                .idEntreprise(mouvementstock.getIdEntreprise())
                 .build();
     }
-    public MouvementStock toEntity (MouvementStockDto mouvementstockDto){
+    public static MouvementStock toEntity (MouvementStockDto mouvementstockDto){
         if(mouvementstockDto == null){
             return null;
         }
         MouvementStock mouvementstock = new MouvementStock();
         mouvementstock.setId(mouvementstockDto.getId());
         mouvementstock.setQuantite(mouvementstockDto.getQuantite());
-        mouvementstock.setDateMvt(mouvementstock.getDateMvt());
+        mouvementstock.setDateMvt(mouvementstockDto.getDateMvt());
         mouvementstock.setArticle(ArticleDto.toEntity(mouvementstockDto.getArticle()));
-        mouvementstock.setTypeMvtStock(mouvementstock.getTypeMvtStock());
+        mouvementstock.setTypeMvtStock(mouvementstockDto.getTypeMvtStock());
+        mouvementstock.setIdEntreprise(mouvementstockDto.getIdEntreprise());
+        mouvementstock.setSourceMvt(mouvementstockDto.getSourceMvt());
         return mouvementstock;
     }
 }
