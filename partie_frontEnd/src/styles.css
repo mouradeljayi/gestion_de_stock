@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #EEEEEE;
+  font-family: 'Montserrat', sans-serif;
+}
+.top-120 {
+  margin-top: 120px;
+}
