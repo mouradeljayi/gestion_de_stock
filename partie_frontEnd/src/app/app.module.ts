@@ -14,6 +14,13 @@ import { DetailArticleComponent } from './pages/articles/detail-article/detail-a
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ButtonActionComponent } from './components/button-action/button-action.component';
 import { NouvelArticleComponent } from './pages/articles/nouvel-article/nouvel-article.component';
+import { PageMvtstkComponent } from './pages/mvtstk/page-mvtstk/page-mvtstk.component';
+import { DetailMvtstkComponent } from './pages/mvtstk/detail-mvtstk/detail-mvtstk.component';
+import { DetailStockArticleComponent } from './pages/mvtstk/detail-stock-article/detail-stock-article.component';
+import { DetailCltFrsComponent } from './components/detail-clt-frs/detail-clt-frs.component';
+import { PageClientComponent } from './pages/clients/page-client/page-client.component';
+import { PageFournisseurComponent } from './pages/fournisseurs/page-fournisseur/page-fournisseur.component';
+import { NouvelCltFrsComponent } from './components/nouvel-clt-frs/nouvel-clt-frs.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +35,14 @@ import { NouvelArticleComponent } from './pages/articles/nouvel-article/nouvel-a
     DetailArticleComponent,
     PaginationComponent,
     ButtonActionComponent,
-    NouvelArticleComponent
+    NouvelArticleComponent,
+    PageMvtstkComponent,
+    DetailMvtstkComponent,
+    DetailStockArticleComponent,
+    DetailCltFrsComponent,
+    PageClientComponent,
+    PageFournisseurComponent,
+    NouvelCltFrsComponent
   ],
   imports: [
     BrowserModule,

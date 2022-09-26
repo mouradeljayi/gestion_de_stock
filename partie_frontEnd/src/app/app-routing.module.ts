@@ -6,6 +6,10 @@ import {PageDashboardComponent} from "./pages/page-dashboard/page-dashboard.comp
 import {PageStatistiquesComponent} from "./pages/page-statistiques/page-statistiques.component";
 import {PageArticleComponent} from "./pages/articles/page-article/page-article.component";
 import {NouvelArticleComponent} from "./pages/articles/nouvel-article/nouvel-article.component";
+import {PageMvtstkComponent} from "./pages/mvtstk/page-mvtstk/page-mvtstk.component";
+import {PageClientComponent} from "./pages/clients/page-client/page-client.component";
+import {PageFournisseurComponent} from "./pages/fournisseurs/page-fournisseur/page-fournisseur.component";
+import {NouvelCltFrsComponent} from "./components/nouvel-clt-frs/nouvel-clt-frs.component";
 
 const routes: Routes = [
   {
@@ -31,6 +35,26 @@ const routes: Routes = [
       {
         path: 'nouvelarticle',
         component: NouvelArticleComponent
+      },
+      {
+        path: 'mouvementstock',
+        component: PageMvtstkComponent
+      },
+      {
+        path: 'clients',
+        component: PageClientComponent
+      },
+      {
+        path: 'nouvelclient',
+        component: NouvelCltFrsComponent
+      },
+      {
+        path: 'fournisseurs',
+        component: PageFournisseurComponent
+      },
+      {
+        path: 'nouvelfournisseur',
+        component: NouvelCltFrsComponent
       },
     ]
   }

@@ -1,0 +1,83 @@
+<div class="row mb-1 custom-border mr-0">
+  <div class="col-md-2 p-1 text-center border-right">
+    <img src="assets/product.png" alt="product icon" width="100%">
+  </div>
+
+  <!-- Detail Article -->
+  <div class="col-md-4 border-right mt-2">
+    <div class="col">
+      <div class="row">
+        <div class="col-md-1"><i class="fa-solid fa-circle-info text-info"></i></div>
+        <div class="col-md-9">Code article</div>
+      </div>
+      <div class="row">
+        <div class="col-md-1"><i class="fa-solid fa-circle-info text-info"></i></div>
+        <div class="col-md-9">Designation</div>
+      </div>
+      <div class="row">
+        <div class="col-md-1"><i class="fa-solid fa-dollar-sign text-success"></i></div>
+        <div class="col-md-9">Prix HT</div>
+      </div>
+      <div class="row">
+        <div class="col-md-1"><i class="fa-solid fa-dollar-sign text-success"></i></div>
+        <div class="col-md-9">Prix TTC</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Stock -->
+  <div class="col-md-3 border-right mt-2">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h5>Stock actuel</h5>
+      </div>
+      <div class="col-md-12 mt-2">
+        <h4>139</h4>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Button correction de stock -->
+  <div class="col-md-3 border-right mt-2">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <i class="fa-brands fa-stack-overflow fa-2x"></i>
+      </div>
+      <div class="col-md-12 mt-2">
+        <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-link">Correction de stock</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Correction de stock</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Quantitée">
+          </div>
+          <div class="form-group">
+            <select class="form-control">
+              <option>Correction positive</option>
+              <option>Correction négative</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-ban"></i> Annuler</button>
+        <button type="button" class="btn btn-success"><i class="fa-solid fa-save"></i> Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
