@@ -100,13 +100,13 @@ export class MenuComponent implements OnInit {
           id: '51',
           title: 'Categories',
           icon: 'fa-solid fa-list',
-          url: '',
+          url: 'categories',
         },
         {
           id: '52',
           title: 'Utilisateurs',
           icon: 'fa-solid fa-users',
-          url: '',
+          url: 'users',
         },
       ]
     },
