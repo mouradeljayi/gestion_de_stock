@@ -1,11 +1,11 @@
 <div class="d-flex">
-  <div class="p-2 flex-fill">
+  <div class="p-2 flex-fill" *ngIf="isExporterVisible">
     <button type="button" class="btn btn-sm btn-warning"><i class="fa-solid fa-cloud-arrow-up"></i> Exporter</button>
   </div>
-  <div class="p-2 flex-fill">
+  <div class="p-2 flex-fill" *ngIf="isImporterVisible">
     <button type="button" class="btn btn-sm btn-success"><i class="fa-solid fa-cloud-arrow-down"></i> Importer</button>
   </div>
-  <div class="p-2 flex-fill">
+  <div class="p-2 flex-fill" *ngIf="isNouveauVisible">
     <button (click)="buttonNouveauClick()" type="button" class="btn btn-sm btn-dark"><i class="fa-solid fa-plus"></i> Nouveau</button>
   </div>
 </div>

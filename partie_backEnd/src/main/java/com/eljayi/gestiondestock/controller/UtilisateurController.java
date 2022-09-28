@@ -2,6 +2,7 @@ package com.eljayi.gestiondestock.controller;
 
 
 import com.eljayi.gestiondestock.controller.api.UtilisateurApi;
+import com.eljayi.gestiondestock.dto.ChangerMotDePasseUtilisateurDto;
 import com.eljayi.gestiondestock.dto.UtilisateurDto;
 import com.eljayi.gestiondestock.services.UtilisateurService;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,5 +35,15 @@ public class UtilisateurController implements UtilisateurApi {
     @Override
     public void delete(Integer id) {
         utilisateurService.delete(id);
+    }
+
+    @Override
+    public UtilisateurDto findByEmail(String email) {
+        return utilisateurService.findByEmail(email);
+    }
+
+    @Override
+    public UtilisateurDto changerMotDePasse(ChangerMotDePasseUtilisateurDto dto) {
+        return utilisateurService.changerMotDePasse(dto);
     }
 }

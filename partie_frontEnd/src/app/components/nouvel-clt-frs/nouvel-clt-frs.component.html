@@ -4,7 +4,7 @@
   </div>
   <div class="col-md-12">
     <div class="col-md-12 mb-3">
-      <h2><i class="fa-solid fa-info-circle text-info"></i>&nbsp; Informations de client / Fournisseur </h2>
+      <h2><i class="fa-solid fa-info-circle text-info"></i>&nbsp; Informations du {{origin}} </h2>
     </div>
     <div class="col-md-12">
       <form>
@@ -49,7 +49,7 @@
   </div>
 
   <div class="col-md-12 text-right">
-    <button class="btn btn-warning mr-2"><i class="fa-solid fa-ban"></i> Annuler</button>
-    <button class="btn btn-success"> <i class="fa-solid fa-save"></i> Enregistrer</button>
+    <button (click)="cancelClick()" class="btn btn-warning mr-2"><i class="fa-solid fa-ban"></i> Annuler</button>
+    <button (click)="saveClick()" class="btn btn-success"> <i class="fa-solid fa-save"></i> Enregistrer</button>
   </div>
 </div>

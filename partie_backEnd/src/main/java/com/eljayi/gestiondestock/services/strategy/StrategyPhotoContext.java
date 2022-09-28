@@ -4,6 +4,7 @@ import com.eljayi.gestiondestock.exception.ErrorCodes;
 import com.eljayi.gestiondestock.exception.InvalidOperationException;
 import com.flickr4java.flickr.FlickrException;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,14 @@ import java.io.InputStream;
 
 @Service
 @AllArgsConstructor
+@NoArgsConstructor
 public class StrategyPhotoContext {
+
     private BeanFactory beanFactory;
     private Strategy strategy;
     @Setter
     private String context;
+
 
 
     public Object savePhoto(String context, Integer id, InputStream photo, String title) throws FlickrException {

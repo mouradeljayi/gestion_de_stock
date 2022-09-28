@@ -1,6 +1,7 @@
 package com.eljayi.gestiondestock.controller.api;
 
 
+import com.eljayi.gestiondestock.dto.ChangerMotDePasseUtilisateurDto;
 import com.eljayi.gestiondestock.dto.UtilisateurDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -22,4 +23,10 @@ public interface UtilisateurApi {
 
     @DeleteMapping(value = APP_ROOT + "/utilisateurs/delete/{idUtilisateur}")
     void delete( @PathVariable("idUtilisateur") Integer id);
+    @GetMapping( value = APP_ROOT + "/utilisateurs/{email}",produces = MediaType.APPLICATION_JSON_VALUE)
+    UtilisateurDto findByEmail(@PathVariable("email") String email);
+
+    @PostMapping(value = APP_ROOT + "/utilisateurs/changepassword",consumes = MediaType.APPLICATION_JSON_VALUE ,  produces = MediaType.APPLICATION_JSON_VALUE)
+    UtilisateurDto changerMotDePasse(@RequestBody ChangerMotDePasseUtilisateurDto dto);
+
 }
