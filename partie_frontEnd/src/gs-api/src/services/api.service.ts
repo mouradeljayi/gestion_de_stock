@@ -4,7 +4,7 @@ import { HttpClient, HttpRequest, HttpResponse, HttpHeaders } from '@angular/com
 import { BaseService as __BaseService } from '../base-service';
 import { ApiConfiguration as __Configuration } from '../api-configuration';
 import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-response';
-import { Observable as __Observable } from 'rxjs';
+import {Observable, Observable as __Observable} from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { ArticleDto } from '../models/article-dto';
@@ -1457,7 +1457,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  save_5(): __Observable<EntrepriseDto> {
+  save_5(entreprise: EntrepriseDto): Observable<EntrepriseDto> {
     return this.save_5Response().pipe(
       __map(_r => _r.body as EntrepriseDto)
     );

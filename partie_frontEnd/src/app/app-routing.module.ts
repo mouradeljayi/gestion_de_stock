@@ -18,6 +18,7 @@ import {PageUsersComponent} from "./pages/users/page-users/page-users.component"
 import {NouvelUserComponent} from "./pages/users/nouvel-user/nouvel-user.component";
 import {PageProfilComponent} from "./pages/profil/page-profil/page-profil.component";
 import {ChangePasswordComponent} from "./pages/profil/change-password/change-password.component";
+import {ApplicationGuardService} from "./services/guard/application-guard.service";
 
 const routes: Routes = [
   {
@@ -31,14 +32,17 @@ const routes: Routes = [
   {
     path: '',
     component: PageDashboardComponent,
+    canActivate: [ApplicationGuardService],
     children: [
       {
         path: 'statistiques',
-        component: PageStatistiquesComponent
+        component: PageStatistiquesComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'articles',
-        component: PageArticleComponent
+        component: PageArticleComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'nouvelarticle',
@@ -46,15 +50,18 @@ const routes: Routes = [
       },
       {
         path: 'mouvementstock',
-        component: PageMvtstkComponent
+        component: PageMvtstkComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'clients',
-        component: PageClientComponent
+        component: PageClientComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'nouvelclient',
         component: NouvelCltFrsComponent,
+        canActivate: [ApplicationGuardService],
         data: {
           origin: 'client'
         }
@@ -62,6 +69,7 @@ const routes: Routes = [
       {
         path: 'commandeclient',
         component: PageCmdCltFrsComponent,
+        canActivate: [ApplicationGuardService],
         data: {
           origin: 'clients'
         }
@@ -69,17 +77,20 @@ const routes: Routes = [
       {
         path: 'nouvellecommandeclient',
         component: NouvelleCmdCltFrsComponent,
+        canActivate: [ApplicationGuardService],
         data: {
           origin: 'client'
         }
       },
       {
         path: 'fournisseurs',
-        component: PageFournisseurComponent
+        component: PageFournisseurComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'nouvelfournisseur',
         component: NouvelCltFrsComponent,
+        canActivate: [ApplicationGuardService],
         data: {
           origin: 'fournisseur'
         }
@@ -87,6 +98,7 @@ const routes: Routes = [
       {
         path: 'commandefournisseur',
         component: PageCmdCltFrsComponent,
+        canActivate: [ApplicationGuardService],
         data: {
           origin: 'fournisseurs'
         }
@@ -94,33 +106,40 @@ const routes: Routes = [
       {
         path: 'nouvellecommandefournisseur',
         component: NouvelleCmdCltFrsComponent,
+        canActivate: [ApplicationGuardService],
         data: {
           origin: 'fournisseur'
         }
       },
       {
         path: 'categories',
-        component: PageCategoryComponent
+        component: PageCategoryComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'nouvellecategory',
-        component: NouvelleCategoryComponent
+        component: NouvelleCategoryComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'users',
-        component: PageUsersComponent
+        component: PageUsersComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'nouveluser',
-        component: NouvelUserComponent
+        component: NouvelUserComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'profil',
-        component: PageProfilComponent
+        component: PageProfilComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'changerpassword',
-        component: ChangePasswordComponent
+        component: ChangePasswordComponent,
+        canActivate: [ApplicationGuardService]
       },
     ]
   }

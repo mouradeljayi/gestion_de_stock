@@ -32,6 +32,8 @@ import { DetailUsersComponent } from './pages/users/detail-users/detail-users.co
 import { NouvelUserComponent } from './pages/users/nouvel-user/nouvel-user.component';
 import { PageProfilComponent } from './pages/profil/page-profil/page-profil.component';
 import { ChangePasswordComponent } from './pages/profil/change-password/change-password.component';
+import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -66,10 +68,12 @@ import { ChangePasswordComponent } from './pages/profil/change-password/change-p
     PageProfilComponent,
     ChangePasswordComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
