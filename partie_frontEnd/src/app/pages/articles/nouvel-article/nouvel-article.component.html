@@ -7,30 +7,38 @@
       <h2><i class="fa-solid fa-info-circle text-info"></i>&nbsp; Informations de l'article</h2>
     </div>
     <div class="col-md-12">
+      <div class="alert alert-danger" *ngIf="errorMsg.length > 0">
+        <span *ngFor="let error of errorMsg">
+          {{error}}
+        </span>
+      </div>
       <form>
         <div class="row mb-3">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Code article">
+            <input type="text" class="form-control" name="codearticle" placeholder="Code article" [(ngModel)]="articleDto.codeArticle">
           </div>
           <div class="col">
-            <input type="text" class="form-control" placeholder="Designation">
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Prix unitaire HT">
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Prix unitaire TTC">
+            <input type="text" class="form-control" name="designation" placeholder="Designation" [(ngModel)]="articleDto.designation">
           </div>
         </div>
         <div class="row mb-3">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Taux TVA">
+            <input type="text" class="form-control" name="prixht" placeholder="Prix unitaire HT" [(ngModel)]="articleDto.prixUnitaireHt">
           </div>
           <div class="col">
-            <select class="form-control">
+            <input type="text" class="form-control" name="prixttc" placeholder="Prix unitaire TTC" [(ngModel)]="articleDto.prixUnitaireTtc">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <input type="text" class="form-control" name="tauxtva" placeholder="Taux TVA" [(ngModel)]="articleDto.tauxTva">
+          </div>
+          <div class="col">
+            <select class="form-control" name="cat" [(ngModel)]="categorieDto?.id">
               <option>Sélectionner une catégorie</option>
+              <option *ngFor="let cat of listCategories" [value]="cat.id">
+                {{cat.code}} - {{cat.designation}}
+              </option>
             </select>
           </div>
         </div>
@@ -41,6 +49,6 @@
 
   <div class="col-md-12 text-right">
     <button (click)="cancel()" class="btn btn-warning mr-2"><i class="fa-solid fa-ban"></i> Annuler</button>
-    <button class="btn btn-success"> <i class="fa-solid fa-save"></i> Enregistrer</button>
+    <button class="btn btn-success" (click)="enregistrerArticle()"> <i class="fa-solid fa-save"></i> Enregistrer</button>
   </div>
 </div>

@@ -46,7 +46,13 @@ const routes: Routes = [
       },
       {
         path: 'nouvelarticle',
-        component: NouvelArticleComponent
+        component: NouvelArticleComponent,
+        canActivate: [ApplicationGuardService]
+      },
+      {
+        path: 'nouvelarticle/:idArticle',
+        component: NouvelArticleComponent,
+        canActivate: [ApplicationGuardService]
       },
       {
         path: 'mouvementstock',
@@ -118,6 +124,11 @@ const routes: Routes = [
       },
       {
         path: 'nouvellecategory',
+        component: NouvelleCategoryComponent,
+        canActivate: [ApplicationGuardService]
+      },
+      {
+        path: 'nouvellecategory/:idCategory',
         component: NouvelleCategoryComponent,
         canActivate: [ApplicationGuardService]
       },

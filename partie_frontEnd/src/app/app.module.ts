@@ -33,7 +33,8 @@ import { NouvelUserComponent } from './pages/users/nouvel-user/nouvel-user.compo
 import { PageProfilComponent } from './pages/profil/page-profil/page-profil.component';
 import { ChangePasswordComponent } from './pages/profil/change-password/change-password.component';
 import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {InterceptorService} from "./services/interceptor/interceptor.service";
 
 @NgModule({
   declarations: [
@@ -74,7 +75,11 @@ import {HttpClientModule} from "@angular/common/http";
         HttpClientModule,
         FormsModule
     ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

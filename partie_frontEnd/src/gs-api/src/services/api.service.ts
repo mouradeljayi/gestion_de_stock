@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { BaseService as __BaseService } from '../base-service';
 import { ApiConfiguration as __Configuration } from '../api-configuration';
-import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-response';
+import {StrictHttpResponse, StrictHttpResponse as __StrictHttpResponse} from '../strict-http-response';
 import {Observable, Observable as __Observable} from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
@@ -22,6 +22,7 @@ import { UtilisateurDto } from '../models/utilisateur-dto';
 import { VenteDto } from '../models/vente-dto';
 import { AuthenticationResponse } from '../models/authentication-response';
 import { AuthenticationRequest } from '../models/authentication-request';
+import {ChangerMotDePasseDto} from "../models/changer-mot-de-passe-dto";
 @Injectable({
   providedIn: 'root',
 })
@@ -137,7 +138,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  saveResponse(): __Observable<__StrictHttpResponse<ArticleDto>> {
+  saveResponse(articleDto: ArticleDto): Observable<StrictHttpResponse<ArticleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -161,8 +162,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  save(): __Observable<ArticleDto> {
-    return this.saveResponse().pipe(
+  save(articleDto: ArticleDto): Observable<ArticleDto> {
+    return this.saveResponse(articleDto).pipe(
       __map(_r => _r.body as ArticleDto)
     );
   }
@@ -327,7 +328,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findbyIdResponse(): __Observable<__StrictHttpResponse<ArticleDto>> {
+  findbyIdResponse(idArticle: number): Observable<StrictHttpResponse<ArticleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -351,8 +352,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findbyId(): __Observable<ArticleDto> {
-    return this.findbyIdResponse().pipe(
+  findbyId(idArticle: number): Observable<ArticleDto> {
+    return this.findbyIdResponse(idArticle).pipe(
       __map(_r => _r.body as ArticleDto)
     );
   }
@@ -426,7 +427,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  save_1Response(): __Observable<__StrictHttpResponse<CategorieDto>> {
+  save_1Response(categorieDto: CategorieDto): Observable<StrictHttpResponse<CategorieDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -450,18 +451,19 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  save_1(): __Observable<CategorieDto> {
-    return this.save_1Response().pipe(
+  save_1(categorieDto: CategorieDto): Observable<CategorieDto> {
+    return this.save_1Response(categorieDto).pipe(
       __map(_r => _r.body as CategorieDto)
     );
   }
-  delete_1Response(): __Observable<__StrictHttpResponse<null>> {
+
+  delete_1Response(idCategory: number): Observable<StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
     let req = new HttpRequest<any>(
       'DELETE',
-      this.rootUrl + `/gestiondestock/v1/categories/delete/${encodeURIComponent(String(idCategorie))}`,
+      this.rootUrl + `/gestiondestock/v1/categories/delete/${encodeURIComponent(String(idCategory))}`,
       __body,
       {
         headers: __headers,
@@ -475,8 +477,8 @@ class ApiService extends __BaseService {
         return _r as __StrictHttpResponse<null>;
       })
     );
-  }  delete_1(): __Observable<null> {
-    return this.delete_1Response().pipe(
+  }  delete_1(idCategory: number): __Observable<null> {
+    return this.delete_1Response(idCategory).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -517,13 +519,13 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findbyId_1Response(): __Observable<__StrictHttpResponse<CategorieDto>> {
+  findbyId_1Response(idCategory: number): Observable<StrictHttpResponse<CategorieDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `/gestiondestock/v1/categories/${encodeURIComponent(String(idCategorie))}`,
+      this.rootUrl + `/gestiondestock/v1/categories/${encodeURIComponent(String(idCategory))}`,
       __body,
       {
         headers: __headers,
@@ -541,8 +543,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findbyId_1(): __Observable<CategorieDto> {
-    return this.findbyId_1Response().pipe(
+  findbyId_1(idCategory: number): Observable<CategorieDto> {
+    return this.findbyId_1Response(idCategory).pipe(
       __map(_r => _r.body as CategorieDto)
     );
   }
@@ -1457,7 +1459,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  save_5(entreprise: EntrepriseDto): Observable<EntrepriseDto> {
+  save_5(): __Observable<EntrepriseDto> {
     return this.save_5Response().pipe(
       __map(_r => _r.body as EntrepriseDto)
     );
@@ -1912,7 +1914,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  changerMotDePasseResponse(): __Observable<__StrictHttpResponse<UtilisateurDto>> {
+  changerMotDePasseResponse(changerMotDePasse: ChangerMotDePasseDto): Observable<StrictHttpResponse<UtilisateurDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1936,8 +1938,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  changerMotDePasse(): __Observable<UtilisateurDto> {
-    return this.changerMotDePasseResponse().pipe(
+  changerMotDePasse(changerMotDePasse: ChangerMotDePasseDto): Observable<UtilisateurDto> {
+    return this.changerMotDePasseResponse(changerMotDePasse).pipe(
       __map(_r => _r.body as UtilisateurDto)
     );
   }
@@ -2003,7 +2005,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findByEmailResponse(): __Observable<__StrictHttpResponse<UtilisateurDto>> {
+  findByEmailResponse(email: string): Observable<StrictHttpResponse<UtilisateurDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2027,8 +2029,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findByEmail(): __Observable<UtilisateurDto> {
-    return this.findByEmailResponse().pipe(
+  findByEmail(email: string): Observable<UtilisateurDto> {
+    return this.findByEmailResponse(email).pipe(
       __map(_r => _r.body as UtilisateurDto)
     );
   }

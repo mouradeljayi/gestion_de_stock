@@ -4,13 +4,18 @@
       <h4>Nouvelle Categorie</h4>
     </div>
     <div class="col-md-12">
+      <div class="alert alert-danger" *ngIf="errorMsg.length > 0">
+        <div *ngFor="let msg of errorMsg">
+          <span>{{msg}}</span>
+        </div>
+      </div>
       <form>
         <div class="row mb-3">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Code categorie">
+            <input type="text" class="form-control" placeholder="Code categorie" name="codecategorie" [(ngModel)]="categoryDto.code">
           </div>
           <div class="col">
-            <input type="text" class="form-control" placeholder="Description">
+            <input type="text" class="form-control" placeholder="Description" name="designationcategorie" [(ngModel)]="categoryDto.designation">
           </div>
         </div>
       </form>
@@ -20,6 +25,6 @@
 
   <div class="col-md-12 text-right">
     <button (click)="cancel()" class="btn btn-warning mr-2"><i class="fa-solid fa-ban"></i> Annuler</button>
-    <button class="btn btn-success"> <i class="fa-solid fa-save"></i> Enregistrer</button>
+    <button class="btn btn-success" (click)="enregistrerCategorie()"> <i class="fa-solid fa-save"></i> Enregistrer</button>
   </div>
 </div>

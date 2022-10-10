@@ -3,6 +3,7 @@ package com.eljayi.gestiondestock.controller.api;
 import com.eljayi.gestiondestock.dto.CommandeClientDto;
 import com.eljayi.gestiondestock.dto.LigneCommandeClientDto;
 import com.eljayi.gestiondestock.model.EtatCommande;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static com.eljayi.gestiondestock.utils.Constants.APP_ROOT;
 
+@Tag(name = "commandesclients")
 public interface CommandeClientApi {
 
     @PostMapping(value = APP_ROOT + "/commandesclients/create")

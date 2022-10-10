@@ -8,19 +8,19 @@
     <div class="col">
       <div class="row">
         <div class="col-md-1"><i class="fa-solid fa-circle-info text-info"></i></div>
-        <div class="col-md-9">Code article</div>
+        <div class="col-md-9">{{articleDto.codeArticle}}</div>
       </div>
       <div class="row">
         <div class="col-md-1"><i class="fa-solid fa-circle-info text-info"></i></div>
-        <div class="col-md-9">Designation</div>
+        <div class="col-md-9">{{articleDto.designation}}</div>
       </div>
       <div class="row">
         <div class="col-md-1"><i class="fa-solid fa-dollar-sign text-success"></i></div>
-        <div class="col-md-9">Prix HT</div>
+        <div class="col-md-9">{{articleDto.prixUnitaireHt}} €</div>
       </div>
       <div class="row">
         <div class="col-md-1"><i class="fa-solid fa-dollar-sign text-success"></i></div>
-        <div class="col-md-9">Prix TTC</div>
+        <div class="col-md-9">{{articleDto.prixUnitaireTtc}} €</div>
       </div>
     </div>
   </div>
@@ -33,8 +33,8 @@
       </div>
       <div class="col-md-10">
         <div class="row">
-          <div class="col-md-12">Code categorie</div>
-          <div class="col-md-12">Desccription categorie</div>
+          <div class="col-md-12">{{articleDto.categorie?.code}}</div>
+          <div class="col-md-12">{{articleDto.categorie?.designation}}</div>
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@
   <div class="col-md-3 mt-2">
     <div class="row">
       <div class="col-md-4">
-        <button type="button" class="btn btn-sm btn-warning"> <i class="fa-solid fa-edit"></i></button>
+        <button type="button" class="btn btn-sm btn-warning" (click)="modifierArticle()"> <i class="fa-solid fa-edit"></i></button>
       </div>
       <div class="col-md-4">
         <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>

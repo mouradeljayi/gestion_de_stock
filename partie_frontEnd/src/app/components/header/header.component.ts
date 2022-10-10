@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UtilisateurDto} from "../../../gs-api/src/models/utilisateur-dto";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  connectedUser: UtilisateurDto = {}
+
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
+    this.connectedUser = this.userService.getConnectedUser()
   }
 
 }

@@ -9,18 +9,50 @@
     </div>
   </div>
   <div class="col m-3">
-    <div class="row custom-border p-2 mr-0">
+    <div class="alert alert-danger" *ngIf="errorMsg">
+      {{errorMsg}}
+    </div>
+    <div class="row custom-border p-2 mr-0" *ngFor="let cat of listCategories">
       <div class="col-md-3 border-right">
-        Code Category
+        {{cat.code}}
+      </div>
+      <div class="col-md-4 border-right">
+        {{cat.designation}}
       </div>
       <div class="col-md-3">
-        Description Category
+        <div class="row">
+          <div class="col-md-4">
+            <button type="button" class="btn btn-sm btn-warning" (click)="modifierCategory(cat.id)"> <i class="fa-solid fa-edit"></i></button>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectCategoriePourSupprimer(cat.id)"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="row mb-3">
+  <div class="row mb-3" *ngIf="listCategories.length > 0">
     <div class="col-md-12 text-center">
       <app-pagination></app-pagination>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Etes vous sur de vouloir supprimer cette catégorie ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="annulerSupprissionCategorie()">Annuler</button>
+        <button type="button" class="btn danger" data-bs-dismiss="modal" (click)="confirmerEtSupprimerCategorie()">Supprimer</button>
+      </div>
     </div>
   </div>
 </div>

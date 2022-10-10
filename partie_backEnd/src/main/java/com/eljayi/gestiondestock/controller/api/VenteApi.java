@@ -1,12 +1,14 @@
 package com.eljayi.gestiondestock.controller.api;
 
 import com.eljayi.gestiondestock.dto.VenteDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static com.eljayi.gestiondestock.utils.Constants.APP_ROOT;
 
+@Tag(name = "ventes")
 public interface VenteApi {
 
     @PostMapping(value = APP_ROOT + "/ventes/create")

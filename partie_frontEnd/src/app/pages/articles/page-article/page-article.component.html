@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="col m-3">
-    <app-detail-article></app-detail-article>
+    <app-detail-article *ngFor="let article of listArticle" [articleDto]="article"></app-detail-article>
   </div>
   <div class="row mb-3">
     <div class="col-md-12 text-center">

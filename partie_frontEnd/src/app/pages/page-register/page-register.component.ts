@@ -43,8 +43,17 @@ export class PageRegisterComponent implements OnInit {
     }
     this.userService.login(authRequest)
       .subscribe(response => {
-        this.userService.setConnectedUser(response)
+        this.userService.setAccessToken(response)
+        this.getUserByEmail(authRequest.login)
+        localStorage.setItem("origin", "register")
         this.router.navigate(['changerpassword'])
+      })
+  }
+
+  getUserByEmail(email?: string) : void {
+    this.userService.getUserByEmail(email)
+      .subscribe(user => {
+        this.userService.setConnectedUser(user)
       })
   }
 }

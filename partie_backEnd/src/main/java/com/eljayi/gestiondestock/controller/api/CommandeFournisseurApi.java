@@ -5,6 +5,7 @@ import com.eljayi.gestiondestock.dto.LigneCommandeClientDto;
 import com.eljayi.gestiondestock.dto.LigneCommandeFournisseurDto;
 import com.eljayi.gestiondestock.model.EtatCommande;
 import com.eljayi.gestiondestock.model.LigneCommandeFournisseur;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static com.eljayi.gestiondestock.utils.Constants.APP_ROOT;
 
+@Tag(name = "commandesfournisseurs")
 public interface CommandeFournisseurApi {
 
     @PostMapping(value = APP_ROOT + "/commandesfournisseurs/create")

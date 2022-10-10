@@ -24,10 +24,18 @@ export class PageLoginComponent implements OnInit {
   login() {
     this.userService.login(this.authRequest)
       .subscribe((data) => {
-        this.userService.setConnectedUser(data)
+        this.userService.setAccessToken(data)
+        this.getUserByEmail()
         this.router.navigate([''])
       }, error => {
         this.errorMessage = 'Login ou mot de passe incorrect'
+      })
+  }
+
+  getUserByEmail(): void {
+    this.userService.getUserByEmail(this.authRequest.login)
+      .subscribe(user => {
+        this.userService.setConnectedUser(user)
       })
   }
 

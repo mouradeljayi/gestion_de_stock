@@ -5,6 +5,7 @@ import com.eljayi.gestiondestock.dto.CategorieDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static com.eljayi.gestiondestock.utils.Constants.APP_ROOT;
 
+@Tag(name = "categories")
 public interface CategorieApi {
 
     @Operation(summary = "Enregistrer ou modifier une categorie", description = "Cette méthode permet d'ajouter ou modifier une catégorie")

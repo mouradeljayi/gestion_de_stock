@@ -1,6 +1,7 @@
 package com.eljayi.gestiondestock.controller.api;
 
 import com.eljayi.gestiondestock.dto.MouvementStockDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static com.eljayi.gestiondestock.utils.Constants.APP_ROOT;
 
+@Tag(name = "mouvementstock")
 public interface MouvementStockApi {
 
     @GetMapping(APP_ROOT + "/mouvementstock/stockreel/{idArticle}")

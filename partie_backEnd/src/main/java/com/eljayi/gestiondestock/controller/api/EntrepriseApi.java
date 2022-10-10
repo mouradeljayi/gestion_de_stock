@@ -1,6 +1,7 @@
 package com.eljayi.gestiondestock.controller.api;
 
 import com.eljayi.gestiondestock.dto.EntrepriseDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 import static com.eljayi.gestiondestock.utils.Constants.APP_ROOT;
 
-
+@Tag(name = "entreprises")
 public interface EntrepriseApi {
     @PostMapping(value = APP_ROOT + "/entreprises/create",consumes = MediaType.APPLICATION_JSON_VALUE ,  produces = MediaType.APPLICATION_JSON_VALUE)
     EntrepriseDto save(@RequestBody EntrepriseDto dto);
