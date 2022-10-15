@@ -48,12 +48,31 @@
         <button type="button" class="btn btn-sm btn-warning" (click)="modifierArticle()"> <i class="fa-solid fa-edit"></i></button>
       </div>
       <div class="col-md-4">
-        <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" [attr.data-bs-target]="'#exampleModal' + articleDto.id"><i class="fa-solid fa-trash"></i></button>
       </div>
       <div class="col-md-4">
         <button type="button" class="btn btn-sm btn-primary"><i class="fa-solid fa-circle-info"></i></button>
       </div>
     </div>
   </div>
-
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal{{articleDto.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Etes vous sur de vouloir supprimer cet article ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn danger" data-bs-dismiss="modal" (click)="confirmerEtSupprimerArticle()">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+

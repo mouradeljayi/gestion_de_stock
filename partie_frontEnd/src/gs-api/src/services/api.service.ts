@@ -167,7 +167,8 @@ class ApiService extends __BaseService {
       __map(_r => _r.body as ArticleDto)
     );
   }
-  deleteResponse(): __Observable<__StrictHttpResponse<null>> {
+
+  deleteResponse(idArticle: number): Observable<StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -187,8 +188,10 @@ class ApiService extends __BaseService {
         return _r as __StrictHttpResponse<null>;
       })
     );
-  }  delete(): __Observable<null> {
-    return this.deleteResponse().pipe(
+  }
+
+  delete(idArticle: number): Observable<null> {
+    return this.deleteResponse(idArticle).pipe(
       __map(_r => _r.body as null)
     );
   }

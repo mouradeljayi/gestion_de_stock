@@ -29,4 +29,11 @@ export class ArticleService {
     }
     return of();
   }
+
+  deleteArticle(idArticle?: number) : Observable<any>{
+    if (idArticle) {
+      this.apiService.delete(idArticle);
+    }
+    return of();
+  }
 }
