@@ -588,7 +588,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  save_2Response(): __Observable<__StrictHttpResponse<ClientDto>> {
+  save_2Response(clientDto: ClientDto): Observable<StrictHttpResponse<ClientDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -612,12 +612,13 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  save_2(): __Observable<ClientDto> {
-    return this.save_2Response().pipe(
+  save_2(clientDto: ClientDto): Observable<ClientDto> {
+    return this.save_2Response(clientDto).pipe(
       __map(_r => _r.body as ClientDto)
     );
   }
-  delete_2Response(): __Observable<__StrictHttpResponse<null>> {
+
+  delete_2Response(idClient: number): Observable<StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -637,8 +638,10 @@ class ApiService extends __BaseService {
         return _r as __StrictHttpResponse<null>;
       })
     );
-  }  delete_2(): __Observable<null> {
-    return this.delete_2Response().pipe(
+  }
+
+  delete_2(idClient: number): Observable<null> {
+    return this.delete_2Response(idClient).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -646,7 +649,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findbyId_2Response(): __Observable<__StrictHttpResponse<ClientDto>> {
+  findbyId_2Response(idClient: number): Observable<StrictHttpResponse<ClientDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -670,8 +673,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findbyId_2(): __Observable<ClientDto> {
-    return this.findbyId_2Response().pipe(
+  findbyId_2(idClient: number): Observable<ClientDto> {
+    return this.findbyId_2Response(idClient).pipe(
       __map(_r => _r.body as ClientDto)
     );
   }
@@ -1562,7 +1565,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  save_6Response(): __Observable<__StrictHttpResponse<FournisseurDto>> {
+  save_6Response(fournisseurDto: FournisseurDto): Observable<StrictHttpResponse<FournisseurDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1586,12 +1589,13 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  save_6(): __Observable<FournisseurDto> {
-    return this.save_6Response().pipe(
+  save_6(fournisseurDto: FournisseurDto): Observable<FournisseurDto> {
+    return this.save_6Response(fournisseurDto).pipe(
       __map(_r => _r.body as FournisseurDto)
     );
   }
-  delete_6Response(): __Observable<__StrictHttpResponse<null>> {
+
+  delete_6Response(idFournisseur: number): Observable<StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1611,8 +1615,10 @@ class ApiService extends __BaseService {
         return _r as __StrictHttpResponse<null>;
       })
     );
-  }  delete_6(): __Observable<null> {
-    return this.delete_6Response().pipe(
+  }
+
+  delete_6(idFournisseur: number): Observable<null> {
+    return this.delete_6Response(idFournisseur).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -1620,7 +1626,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findbyId_6Response(): __Observable<__StrictHttpResponse<FournisseurDto>> {
+  findbyId_6Response(idFournisseur: number): Observable<StrictHttpResponse<FournisseurDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1644,8 +1650,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findbyId_6(): __Observable<FournisseurDto> {
-    return this.findbyId_6Response().pipe(
+  findbyId_6(idFournisseur: number): Observable<FournisseurDto> {
+    return this.findbyId_6Response(idFournisseur).pipe(
       __map(_r => _r.body as FournisseurDto)
     );
   }

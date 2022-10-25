@@ -10,31 +10,31 @@
       <form>
         <div class="row mb-3">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Nom">
+            <input [(ngModel)]="clientFournisseur.nom" type="text" name="nom" class="form-control" placeholder="Nom">
           </div>
           <div class="col">
-            <input type="text" class="form-control" placeholder="Prénom">
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col">
-            <input type="text" class="form-control" placeholder="E-mail">
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Télephone">
+            <input type="text" name="prenom" [(ngModel)]="clientFournisseur.prenom" class="form-control" placeholder="Prénom">
           </div>
         </div>
         <div class="row mb-3">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Adresse 1">
+            <input type="email" [(ngModel)]="clientFournisseur.mail" name="mail" class="form-control" placeholder="E-mail">
           </div>
           <div class="col">
-            <input type="text" class="form-control" placeholder="Adresse 2">
+            <input type="text" [(ngModel)]="clientFournisseur.numTel" name="tel" class="form-control" placeholder="Télephone">
           </div>
         </div>
         <div class="row mb-3">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Ville ">
+            <input type="text" [(ngModel)]="adresse.adresse1" name="adresse1" class="form-control" placeholder="Adresse 1">
+          </div>
+          <div class="col">
+            <input type="text" [(ngModel)]="adresse.adresse2" name="adresse2" class="form-control" placeholder="Adresse 2">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <input type="text" name="ville" class="form-control" placeholder="Ville ">
           </div>
           <div class="col">
             <input type="text" class="form-control" placeholder="Code postal ">
@@ -50,6 +50,6 @@
 
   <div class="col-md-12 text-right">
     <button (click)="cancelClick()" class="btn btn-warning mr-2"><i class="fa-solid fa-ban"></i> Annuler</button>
-    <button (click)="saveClick()" class="btn btn-success"> <i class="fa-solid fa-save"></i> Enregistrer</button>
+    <button (click)="enregistrer()" class="btn btn-success"> <i class="fa-solid fa-save"></i> Enregistrer</button>
   </div>
 </div>
